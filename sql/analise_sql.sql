@@ -57,14 +57,32 @@ GROUP BY tipo
 ORDER BY tickets DESC;
 
 -- 7 - Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
+SELECT data_inicial, data_final, evento
+FROM `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos`
+ORDER BY data_inicial;
 
+WITH eventos as (
+SELECT data_inicial, data_final,
+(CASE WHEN data_inicial IN (SELECT DISTINCT(data_inicial) FROM `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` WHERE (evento='Rock in Rio' AND data_inicial='2022-09-02')) THEN 'Rock in Rio (S1)' ELSE (CASE WHEN data_inicial IN (SELECT DISTINCT(data_inicial) FROM `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` WHERE (evento='Rock in Rio' AND data_inicial='2022-09-08')) THEN 'Rock in Rio (S2)' ELSE evento END) END) AS evento_2
+FROM `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos`
+LIMIT 50)
+SELECT chamados.tipo, COUNT(chamados.tipo) AS tickets, EXTRACT(DATE FROM chamados.data_inicio) as dia
+FROM `datario.adm_central_atendimento_1746.chamado` AS chamados
+WHERE chamados.tipo = 'Perturbação do sossego'
+AND (chamados.data_inicio BETWEEN (SELECT data_inicial FROM eventos WHERE evento_2 = 'Rock in Rio (S1)') AND (SELECT data_final FROM eventos WHERE evento_2 = 'Rock in Rio (S1)')
+OR chamados.data_inicio BETWEEN (SELECT data_inicial FROM eventos WHERE evento_2 = 'Rock in Rio (S2)') AND (SELECT data_final FROM eventos WHERE evento_2 = 'Rock in Rio (S2)')
+OR chamados.data_inicio BETWEEN (SELECT data_inicial FROM eventos WHERE evento_2 = 'Reveillon') AND (SELECT data_final FROM eventos WHERE evento_2 = 'Reveillon')
+OR chamados.data_inicio BETWEEN (SELECT data_inicial FROM eventos WHERE evento_2 = 'Carnaval') AND (SELECT data_final FROM eventos WHERE evento_2 = 'Carnaval'))
+GROUP BY chamados.tipo, dia
+ORDER BY dia;
 
 -- 8 - Quantos chamados desse subtipo foram abertos em cada evento?
-
+-- Resposta: 548 chamados no Rock in Rio 2022 em 7 dias; 87 chamados no Reveillon 2022 em 3 dias; e 212 chamados no Carnaval 2023 em 4 dias.
 
 -- 9 - Qual evento teve a maior média diária de chamados abertos desse subtipo?
-
+-- Resposta: Rock in Rio 2022, com média de 78,29 chamados por dia (78,29 no Rock in Rio; 29 no Reveillon 2022; e 53 no Carnaval 2023).
 
 -- 10 - Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
+-- Resposta: Média diária de chamados de 78,29 no Rock in Rio 2022; 29 no Reveillon 2022; 53 no Carnaval 2023; e 64,28 durante o período de 01/01/2022 a 31/12/2023. A média diária do período de análise geral só fica abaixo da média durante o Rock in Rio 2022.
 
 
