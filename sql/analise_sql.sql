@@ -1,5 +1,9 @@
 -- 1 - Quantos chamados foram abertos no dia 01/04/2023?
-
+-- Resposta: 1756 chamados.
+SELECT EXTRACT(DATE FROM data_inicio) AS dia, COUNT(data_inicio) AS tickets
+FROM `datario.adm_central_atendimento_1746.chamado`
+WHERE EXTRACT(DATE FROM data_inicio) = '2023-04-01'
+GROUP BY dia;
 
 -- 2 - Qual o tipo de chamado que teve mais teve chamados abertos no dia 01/04/2023?
 
