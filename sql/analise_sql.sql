@@ -15,7 +15,15 @@ ORDER BY tickets DESC
 LIMIT 1;
 
 -- 3 - Quais os nomes dos 3 bairros que mais tiveram chamados abertos nesse dia?
-
+-- Resposta: Bairro Campo Grande (código 144, 113 chamados), Tijuca (código 33, 89 chamados) e Barra da Tijuca (código 128, 59 chamados).
+SELECT EXTRACT(DATE FROM chamados.data_inicio) AS dia, chamados.id_bairro, bairros.nome, COUNT(chamados.data_inicio) AS tickets
+FROM `datario.adm_central_atendimento_1746.chamado` AS chamados
+FULL OUTER JOIN `datario.dados_mestres.bairro` AS bairros
+ON chamados.id_bairro = bairros.id_bairro
+WHERE EXTRACT(DATE FROM chamados.data_inicio) = '2023-04-01' AND (bairros.nome IS NOT NULL)
+GROUP BY dia, chamados.id_bairro, bairros.nome
+ORDER BY tickets DESC
+LIMIT 3;
 
 -- 4 - Qual o nome da subprefeitura com mais chamados abertos nesse dia?
 
