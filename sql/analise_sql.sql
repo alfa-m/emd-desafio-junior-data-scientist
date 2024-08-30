@@ -37,7 +37,15 @@ ORDER BY tickets DESC
 LIMIT 1;
 
 -- 5 - Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
-
+-- Resposta: Sim, houveram 73 chamados não associados a um bairro e/ou subprefeitura. Isso ocorreu pois os chamados foram feitos sem a inclusão da identificação do bairro e também percebe-se que, em sua maioria, foram feitas denúncias relacionadas ao transporte público, o que geralmente não envolve uma localização específica
+SELECT EXTRACT(DATE FROM chamados.data_inicio) AS dia, bairros.id_bairro, bairros.subprefeitura, chamados.tipo, COUNT(chamados.tipo) AS tickets
+FROM `datario.adm_central_atendimento_1746.chamado` AS chamados
+FULL OUTER JOIN `datario.dados_mestres.bairro` AS bairros
+ON chamados.id_bairro = bairros.id_bairro
+WHERE EXTRACT(DATE FROM chamados.data_inicio) = '2023-04-01' AND (bairros.subprefeitura IS NULL OR chamados.id_bairro IS NULL)
+GROUP BY dia, bairros.id_bairro, bairros.subprefeitura, chamados.tipo
+ORDER BY tickets DESC
+LIMIT 100;
 
 -- 6 - Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
 
