@@ -48,7 +48,13 @@ ORDER BY tickets DESC
 LIMIT 100;
 
 -- 6 - Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
-
+-- Resposta: 46.857 chamadas de 'Perturbação do sossego' em 729 dias.
+SELECT tipo, COUNT(tipo) AS tickets
+FROM `datario.adm_central_atendimento_1746.chamado`
+WHERE tipo = 'Perturbação do sossego'
+      AND EXTRACT(DATE FROM data_inicio) BETWEEN '2022-01-01' AND '2023-12-31'
+GROUP BY tipo
+ORDER BY tickets DESC;
 
 -- 7 - Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
 
