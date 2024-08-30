@@ -26,7 +26,15 @@ ORDER BY tickets DESC
 LIMIT 3;
 
 -- 4 - Qual o nome da subprefeitura com mais chamados abertos nesse dia?
-
+-- Resposta: Zona Norte (510 chamados).
+SELECT EXTRACT(DATE FROM chamados.data_inicio) AS dia, bairros.subprefeitura, COUNT(chamados.data_inicio) AS tickets
+FROM `datario.adm_central_atendimento_1746.chamado` AS chamados
+FULL OUTER JOIN `datario.dados_mestres.bairro` AS bairros
+ON chamados.id_bairro = bairros.id_bairro
+WHERE EXTRACT(DATE FROM chamados.data_inicio) = '2023-04-01' AND (bairros.subprefeitura IS NOT NULL)
+GROUP BY dia, bairros.subprefeitura
+ORDER BY tickets DESC
+LIMIT 1;
 
 -- 5 - Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
 
