@@ -36,7 +36,7 @@ As perguntas do desafio estão detalhadas nos arquivos `perguntas_sql.md` e `per
 - [ ] Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_sql.md`. Salve suas respostas em um arquivo `analise_python.py` ou `analise_python.ipynb`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados`.
 - [ ] Utilize Python para resolver todas as questões contidas no arquivo `perguntas_api.md`. Salve suas respostas em um arquivo `analise_api.py` ou `analise_api.ipynb`.
 - [ ] Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas dos dados das tabelas e APIs. Suas visualizações não precisam se limitar apenas aos resultados das análises; é encorajado que você explore os dados e crie visualizações interessantes sobre eles.
-- [ ] Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. Seu repositório deve conter um README com todos os passos necessários para rodar seu código e ver a visualização de dados que você criou.
+- [ ] Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. - - [ ] Seu repositório deve conter um README com todos os passos necessários para rodar seu código e ver a visualização de dados que você criou.
 
 ## Avaliação
 
