@@ -84,5 +84,3 @@ ORDER BY dia;
 
 -- 10 - Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
 -- Resposta: Média diária de chamados de 78,29 no Rock in Rio 2022; 29 no Reveillon 2022; 53 no Carnaval 2023; e 64,28 durante o período de 01/01/2022 a 31/12/2023. A média diária do período de análise geral só fica abaixo da média durante o Rock in Rio 2022.
-
-
